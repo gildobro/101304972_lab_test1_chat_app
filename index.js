@@ -2,13 +2,14 @@ const express = require('express');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
 //const Router = require('routerpath');
-const {dbUser} = require('./models/User');
-const {dbGroup} = require('./models/GroupMessage');
-const {dbPrivate} = require('./models/PrivateMessage');
+//const {db} = require('./models/User');
+// const {db} = require('./models/User');
+// const {db} = require('./models/PrivateMessage');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 const PORT = 8008;
 
 
@@ -17,9 +18,7 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(success => {
-    dbUser.collection
-    dbGroup.collection
-    dbPrivate.collection
+    //db.collection;
     console.log('MongoDB Connected!');
 }).catch(err => {
     console.log('Error Mongodb connection')
@@ -46,4 +45,3 @@ io.on("connection", (clientSocket) => {
 })
 
 
-//app.use(express.json())

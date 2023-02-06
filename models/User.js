@@ -5,7 +5,13 @@ const formattedDate = require('../methods/dateFormat');
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: [true, "Provide User Name"]
+        unique: true,
+        required: [true, "Provide User Name"],
+        validate(value){
+            if(!value.unique){
+                throw new Error("Username already exists");
+            }
+        }
     },
     firstname: {
         type: String, 
