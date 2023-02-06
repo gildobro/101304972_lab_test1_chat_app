@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 //const Router = require('routerpath');
 const {dbUser} = require('./models/User');
 const {dbGroup} = require('./models/GroupMessage');
-const {dbPrive} = require('./models/PrivateMessage');
+const {dbPrivate} = require('./models/PrivateMessage');
 const dotenv = require('dotenv');
 dotenv.config();
 

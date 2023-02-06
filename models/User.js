@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const formattedDate = require('../methods/dateFormat');
+
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -20,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     },
     created: {
         type: Date,
-        default: Date.now
+        default: formattedDate,
     },
 });
 
@@ -28,7 +30,7 @@ const UserSchema = new mongoose.Schema({
 //Middleware
 UserSchema.pre('save', (next) => {
     console.log("Pre Save");
-    let now = Date.now();
+    let now = formattedDate;
 
     this.updatedat = now;
     if(!this.created) {
