@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         required: [true, "Provide User Name"],
         validate(value){
-            if(!value.unique){
+            if(value.unique){
                 throw new Error("Username already exists");
             }
         }
@@ -38,7 +38,7 @@ UserSchema.pre('save', (next) => {
     console.log("Pre Save");
     let now = formattedDate;
 
-    this.updatedat = now;
+    //this.updatedat = now;
     if(!this.created) {
         this.created = now
     };
@@ -64,6 +64,6 @@ UserSchema.post('init', (doc) => {
   });
 
 
-
 const User = mongoose.model("User", UserSchema);
+
 module.exports = User;
