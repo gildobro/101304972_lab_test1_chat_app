@@ -4,7 +4,7 @@ const app = express();
 
 
 
-//Signup Page
+//Display Signup Page
 //http://localhost:8008/signup
 app.get("/signup", (req, res) => {
     try{
@@ -22,6 +22,7 @@ app.get("/signup", (req, res) => {
     }
 });
 
+//Handle Signup Page
 app.post("/signup", async (req, res) => {
     const { username, firstname, lastname, password } = req.body;
     console.log(req.body);

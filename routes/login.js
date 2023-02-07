@@ -4,7 +4,7 @@ const app = express();
 
 
 
-//Login Page
+//Display Login Page
 //http://localhost:8008/login
 app.get("/login", (req, res) => {
     try{
@@ -20,6 +20,8 @@ app.get("/login", (req, res) => {
     }
 });
 
+
+//Handle Login Page
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     console.log(req.body);
@@ -38,7 +40,7 @@ app.post("/login", async (req, res) => {
                 return res.send(`<script>alert("Incorrect Password!"); window.location.href = "/login";</script>`);
             }
             //if user and password exist in database, send user to home page
-            res.send(`<script>alert("Login Successful!"); window.location.href = "/"; </script>`);
+            res.send(`<script>alert("Login Successful!"); window.location.href = "/rooms"; </script>`);
         });
     }catch (err){
         res.status(500).send(err);

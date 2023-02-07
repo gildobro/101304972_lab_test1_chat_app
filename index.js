@@ -3,6 +3,7 @@ const socket = require('socket.io');
 const mongoose = require('mongoose');
 const SignUpRouter = require('./routes/signup');
 const LoginRouter = require("./routes/login");
+const RoomsRouter = require('./routes/rooms');
 //const {db} = require('./models/User');
 // const {db} = require('./models/GroupMessage');
 // const {db} = require('./models/PrivateMessage');
@@ -33,9 +34,20 @@ const server = app.listen(PORT, () => {
     console.log("Socket Server running at port: " + PORT);
 });
 
+//news room
+app.get("/rooms/news", (req, res) => {
+    const {room} = req.params;
+    res.sendFile( __dirname + "/news.html");
+});
 
-app.get("/", (req, res) => {
-    res.sendFile( __dirname + "/home.html");
+//covid19 room
+app.get("/rooms/covid", (req, res) => {
+    res.sendFile( __dirname + "/covid.html");
+});
+
+//nodejs room
+app.get("/rooms/nodejs", (req, res) => {
+    res.sendFile( __dirname + "/nodejs.html");
 });
 
 //SignUp Router
@@ -43,6 +55,9 @@ app.use(SignUpRouter);
 
 //Login Router
 app.use(LoginRouter);
+
+//Room Router
+app.use(RoomsRouter);
 
 
 const io = socket(server);
