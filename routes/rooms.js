@@ -3,7 +3,7 @@ const app = express();
 
 
 //maybe change later if pritesh allows
-const rooms = ["news", "covid19", "nodeJS"];
+const rooms = ["news", "happy", "nodeJS"];
 
 //Display Rooms Page
 //http://localhost:8008/rooms
@@ -33,6 +33,12 @@ app.post("/rooms", (req, res) => {
         }
         if (room == rooms[0]){
             res.send(`<script>alert("You have joined the ${room} room"); window.location.href = "/rooms/news"</script>`);
+        }
+        if (room == rooms[1]){
+            res.send(`<script>alert("You have joined the ${room} room"); window.location.href = "/rooms/happy"</script>`);
+        }
+        if (room == rooms[2]){
+            res.send(`<script>alert("You have joined the ${room} room"); window.location.href = "/rooms/nodejs"</script>`);
         }
     }catch(err){
         res.status(500).send(err);

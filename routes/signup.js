@@ -32,7 +32,7 @@ app.post("/signup", async (req, res) => {
         //save user to db and redirect to home page
         await user
         .save()
-        .then(() => res.send(`<script>alert("User Created!"); window.location.href = "/"; </script>`))
+        .then(() => res.send(`<script>alert("User Created!"); window.location.href = "/rooms"; </script>`))
     }catch (err){
         res.status(500).send(err);
     }

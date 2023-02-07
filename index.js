@@ -34,6 +34,8 @@ const server = app.listen(PORT, () => {
     console.log("Socket Server running at port: " + PORT);
 });
 
+
+//Rooms
 //news room
 app.get("/rooms/news", (req, res) => {
     const {room} = req.params;
@@ -41,8 +43,8 @@ app.get("/rooms/news", (req, res) => {
 });
 
 //covid19 room
-app.get("/rooms/covid", (req, res) => {
-    res.sendFile( __dirname + "/covid.html");
+app.get("/rooms/happy", (req, res) => {
+    res.sendFile( __dirname + "/happy.html");
 });
 
 //nodejs room
