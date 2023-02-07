@@ -9,23 +9,31 @@
         socket.on("welcome", (data) =>{
             console.log(data);
         })
+
+        function disconnect(){
+            return window.location.href = "/login";
+        }
+        function disconnectRoom(){
+            return window.location.href = "/rooms";
+        }
     </script>
 </head>
 <body>
     <h1 class="text-centre">Gil's Chat App</h1>
     <h2 class="text-centre">News Room</h2>
     <form action="">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" 
-            placeholder="Enter your username!"><br>
-        <label for="rooms">Room:</label><br>
-        <select name="rooms" id="rooms">
-            <option >News</option>
-            <option >Covid19</option>
-            <option >NodeJS</option>
-        </select>
+        <label for="chat">Message:</label>
+        <input type="text" name="chat" id="chat">
         <br/><br/>
-        <input type="submit" value="Join Chat Room">
+        <button type="button" name ="button" onclick="setUsername()">
+            Send
+        </button>
+        <button type="button" name ="button" onclick="disconnect()">
+            Logout
+        </button>
+        <button type="button" name ="button" onclick="disconnectRoom()">
+            Leave Room
+        </button>
     </form> 
 </body>
 </html>

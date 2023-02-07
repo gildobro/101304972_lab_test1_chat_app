@@ -1,7 +1,7 @@
 const express = require('express');
 const User = require('../models/User');
 const app = express();
-const socket = require("socket.io");
+
 
 
 //Display Signup Page
@@ -9,7 +9,7 @@ const socket = require("socket.io");
 app.get("/signup", (req, res) => {
     try{
         res.status(200).send(`
-            <h1>Welcome to Gil's Chat Room!</h1>
+            <h1>Welcome to Gil's Chat App!</h1>
             <h2>SignUp:</h2>
 
             <form action="/signup" method="post">
@@ -47,7 +47,7 @@ app.post("/signup", async (req, res) => {
 app.get("/login", (req, res) => {
     try{
         res.status(200).send(`
-            <h1>Welcome Back to Gil's Chat Room!</h1>
+            <h1>Welcome Back to Gil's Chat App!</h1>
             <h2>Login:</h2>
             <form action="/login" method="post">
                 <input type="text" name="username" placeholder="Username" required>
@@ -64,23 +64,21 @@ app.get("/login", (req, res) => {
 //Handle Login Page
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body);
-    //const user = User.findOne({ username: req.body.username });
 
 
 
     try{
-        User.findOne({ username })
+        const user = await User.findOne({ username })
         .then(user => {
             //if user doesn't exist, send client to register
             if(!user){
-                return res.send(`<script>alert("User Not Found!"); window.location.href = "/signup"; </script>`);
+                return res.send(`<script>alert("User Not Found!"); window.location.href = "/login"; </script>`);
             }
             //if user password is wront, send user back to login page to retry
             if(user.password !== password) {
                 return res.send(`<script>alert("Incorrect Password!"); window.location.href = "/login";</script>`);
             }
-            //if user and password exist in database, send user to home page
+
             res.send(`<script>alert("Login Successful!"); window.location.href = "/rooms"; </script>`);
         });
     }catch (err){
@@ -91,7 +89,6 @@ app.post("/login", async (req, res) => {
 
 
 //Room Routes
-//maybe change later if pritesh allows
 const rooms = ["news", "happy", "nodeJS"];
 
 //Display Rooms Page
@@ -116,10 +113,13 @@ app.get("/rooms", (req, res) => {
 app.post("/rooms", (req, res) => {
     const { room } = req.body;
 
+
     try{
         if (!rooms.includes(room)){
             return res.send("Room not found");
         }
+
+
         if (room == rooms[0]){
             res.send(`<script>alert("You have joined the ${room} room"); window.location.href = "/rooms/news"</script>`);
         }
@@ -138,7 +138,6 @@ app.post("/rooms", (req, res) => {
 //Rooms
 //news room
 app.get("/rooms/news", (req, res) => {
-    const {room} = req.params;
     res.sendFile( "/Users/Gil1/Desktop/GeorgeBrown Semester 6/Fullstack Development/101304972_lab_test1_chat_app/news.html");
 });
 

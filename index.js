@@ -1,14 +1,12 @@
 const express = require('express');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
-//const SignUpRouter = require('./routes/signup');
 const Router = require("./routes/routes");
-//const RoomsRouter = require('./routes/rooms');
 //const {db} = require('./models/User');
 // const {db} = require('./models/GroupMessage');
 // const {db} = require('./models/PrivateMessage');
 const dotenv = require('dotenv');
-const formattedDate = require('./methods/dateFormat');
+const { request } = require('./routes/routes');
 dotenv.config();
 
 const app = express();
@@ -24,7 +22,6 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS
     //Used this line to initialize User, Group Message, and PrivateMassege Collections to DB
     //db.collection;
     console.log('MongoDB Connected!');
-    console.log(formattedDate);
 }).catch(err => {
     console.log('Error Mongodb connection')
 });
@@ -41,12 +38,35 @@ app.use(Router);
 //Socket Conenction (may be removed)
 const io = socket(server);
 
-io.on("connection", (clientSocket) => {
-    console.log("Client Connection Request");
-    console.log("Client ID: " + clientSocket.id);
+//not sure how to properly implement sockets with mongodb so I will do what I can
+// users = [];
+// io.on("connection", (clientSocket) => {
+//     console.log("Client Connection Request");
+//     console.log("Client ID: " + clientSocket.id);
 
-    //emit message TO client
-    clientSocket.emit("welcome", "Welcome to Gil's Chat App")
-})
+//     clientSocket.on('setUsername', function(data) {
+//         console.log(data);
+        
+//         if(users.indexOf(data) > -1) {
+//            socket.emit('userExists', data + ' username is taken! Try some other username.');
+//         } else {
+//            users.push(data);
+//            socket.emit('userSet', {username: data});
+//         }
+//      });
+
+//     clientSocket.on('msg', function(data) {
+//         io.sockets.emit('newmsg', data);
+//     });
+
+
+//     //emit message TO client
+//     clientSocket.emit("welcome", "Welcome to Gil's Chat App")
+
+//     //disconnect client
+//     socket.on("disconnect", (data) =>{
+//         console.log(`Client disconnected: ${data}`);
+//     })
+// })
 
 
